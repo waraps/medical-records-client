@@ -69,7 +69,7 @@ const LeftBar = ({ links }: ILeftBar): JSX.Element => {
                         style={{
                             transitionDelay: `${links.length + 3}00ms`
                         }}
-                        className={!open ? 'whitespace-pre duration-500' : 'whitespace-pre duration-500 opacity-0 translate-x-28 overflow-hidden'}
+                        className={open ? 'whitespace-pre duration-500' : 'whitespace-pre duration-500 opacity-0 translate-x-28 overflow-hidden'}
                     >
             Cerrar Sesión
                     </h2>
