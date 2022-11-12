@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch } from 'react';
 import API from '../../api/api';
 import { IUsersActions } from './IUsersActions';
@@ -25,7 +25,7 @@ const userRetrieve = (): any => async (dispatch: Dispatch<IUsersActions>) => {
 
 const userUpdate =
   (user: IUserUpdateReq): any =>
-      (dispatch: Dispatch<IUsersActions>) => {};
+      (dispatch: Dispatch<IUsersActions>) => null;
 
 // reset errors
 const resetErrors = (): any => (dispatch: Dispatch<IUsersActions>) => {

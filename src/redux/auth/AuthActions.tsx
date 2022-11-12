@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch } from 'redux';
 import { UsersConstants, UsersReducer } from '../users';
 import { IAuthActions } from './IAuthActions';
@@ -9,7 +9,7 @@ import API from '../../api/api';
 import { removeCredentials, storeCredentials } from '../../lib';
 
 const signup = (): any => {
-    return (dispatch: Dispatch<IUsersActions | IAuthActions>) => {};
+    return (dispatch: Dispatch<IUsersActions | IAuthActions>) => null;
 };
 
 const signin = (email: string, password: string, navigateTo: () => void): any => {
