@@ -1,8 +1,18 @@
 import { IMenu } from '../../interfaces';
-import { IoFileTrayFullOutline, IoPawOutline, IoPersonOutline } from 'react-icons/io5';
+import { IoMedkitOutline, IoPawOutline, IoPersonCircleOutline } from 'react-icons/io5';
+import {FaCat, FaClipboard, FaClipboardList } from 'react-icons/fa';
 
 export const links: IMenu[] = [
-    { name: 'Sala de Espera', link: '/', icon: IoPawOutline },
-    { name: 'Historias', link: '/historias', icon: IoFileTrayFullOutline },
-    { name: 'Perfil', link: '/perfil', icon: IoPersonOutline },
+    { name: 'Sala de Espera', link: '/', icon: IoMedkitOutline },
+    {
+        name: 'Pacientes',
+        link: '/pacientes',
+        icon: IoPawOutline,
+        children: [
+            { name: 'Agregar Paciente', link: '/agregar/paciente', icon: FaCat },
+            { name: 'Lista de Pacientes', link: '/pacientes', icon: FaClipboardList },
+            { name: 'Lista de Propietarios', link: '/propietarios', icon: FaClipboard },
+        ],
+    },
+    { name: 'Perfil', link: '/perfil', icon: IoPersonCircleOutline },
 ];

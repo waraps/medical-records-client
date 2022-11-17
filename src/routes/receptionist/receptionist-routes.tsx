@@ -1,8 +1,8 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
-import { Layout } from '../../layout';
-import { Profile, Records, WaitingRoom } from '../../pages';
 import { ProtectedRoute } from '../protected-route';
+import { Layout } from '../../layout';
+import { Profile, Patients, WaitingRoom, AddPatient } from '../../pages';
 import { links } from './receptionist-links';
 
 export const receptionistRoutes: RouteObject[] = [
@@ -19,8 +19,12 @@ export const receptionistRoutes: RouteObject[] = [
                 element: <WaitingRoom />,
             },
             {
-                path: '/historias',
-                element: <Records />,
+                path: '/patientes',
+                element: <Patients />,
+            },
+            {
+                path: '/agregar/paciente',
+                element: <AddPatient />,
             },
             {
                 path: '/profile',
