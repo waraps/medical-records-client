@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ProfileConstants } from '../../../constants';
 import { IAppState } from '../../../interfaces';
 import { IUsersReducer } from '../../../redux/users/IUsersReducer';
 
-import avatar from '../../../assets/images/avatar-preview.webp';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { userType } from '../../../tools';
+
+import avatar from '../../../assets/images/avatar-preview.webp';
 
 const Profile = (): JSX.Element => {
     const { user } = useSelector<IAppState, IUsersReducer>(
@@ -16,19 +17,6 @@ const Profile = (): JSX.Element => {
     if (!user) {
         return <div>loading ...</div>;
     }
-
-    const userType = (role: number): string => {
-        switch (role) {
-            case ProfileConstants.ADMINISTRATOR:
-                return 'Administrador';
-            case ProfileConstants.DOCTOR:
-                return 'Medico Veterinario';
-            case ProfileConstants.RECEPTIONIST:
-                return 'Recepcionista';
-            default:
-                return '';
-        }
-    };
 
     return (
         <main className="flex flex-col items-center justify-center mt-6">
@@ -59,7 +47,7 @@ const Profile = (): JSX.Element => {
                     </div>
                     <div className="flex flex-col items-center p-6">
                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              Registrado el{' '}
+                            Registrado el{' '}
                             {format(new Date(user?.createdAt ?? 0), 'dd \'de\' LLLL \'del\' yyyy', { locale: es })}
                         </span>
                     </div>
