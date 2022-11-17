@@ -25,12 +25,12 @@ export const Dropdown = ({
                 }
                 type="button"
             >
-                <div>{React.createElement(IoLogOutOutline, { size: '20' })}</div>
+                <div>{React.createElement(link.icon, { size: '20' })}</div>
                 <h2
                     style={{
                         transitionDelay: `${numberOfLink + 3}00ms`
                     }}
-                    className={!openBar ? 'whitespace-pre duration-500' : 'whitespace-pre duration-500 opacity-0 translate-x-28 overflow-hidden'}
+                    className={openBar ? 'whitespace-pre duration-500' : 'whitespace-pre duration-500 opacity-0 translate-x-28 overflow-hidden'}
                 >
                     {link?.name}
                 </h2>
