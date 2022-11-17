@@ -1,4 +1,6 @@
 export * from './home';
 export * from './waiting-room';
 export * from './profile';
-export * from './records';
+export * from './patients';
+export * from './owners';
+export * from './tests';
