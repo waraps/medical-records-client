@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AuthActions, IAuthReducer } from '../../redux/auth';
@@ -7,12 +7,16 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema, loginSchemaType } from './login-schema';
 import { Button, Footer } from '../../components';
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 import logo from '../../assets/images/galenos.webp';
 
 const Login = (): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [inputType, setInputType] = useState<'text' | 'password'>('password');
 
     const { loading, error } = useSelector<IAppState, IAuthReducer>(
         (state: IAppState) => state.auth
@@ -36,6 +40,15 @@ const Login = (): JSX.Element => {
         dispatch(AuthActions.signin(email, password, navigateTo));
     };
 
+    const showingPassword = (): void => {
+        setShowPassword(!showPassword);
+        if(inputType === 'password') {
+            setInputType('text');
+        } else {
+            setInputType('password');
+        }
+    };
+
     return (
         <div className="bg-gray-50 h-screen flex flex-col justify-between">
             <nav className="bg-primary-pruple-500 w-full py-6 overflow-hidden shadow-lg border-b border-primary-pruple-500" />
@@ -53,7 +66,7 @@ const Login = (): JSX.Element => {
                         <div className="mb-6">
                             <input
                                 type="text"
-                                className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary-pruple-100 focus:outline-none"
+                                className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:outline-none"
                                 id="email"
                                 placeholder="Correo Electrónico"
                                 {...register('email', { required: true })}
@@ -62,13 +75,18 @@ const Login = (): JSX.Element => {
                         </div>
 
                         <div className="mb-6">
-                            <input
-                                type="password"
-                                className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-primary-pruple-100 focus:outline-none"
-                                id="password"
-                                placeholder="Contraseña"
-                                {...register('password', { required: true })}
-                            />
+                            <div className='flex justify-between items-center form-control w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:outline-none'>
+                                <input
+                                    type={inputType}
+                                    className="w-full focus:outline-none"
+                                    id="password"
+                                    placeholder="Contraseña"
+                                    {...register('password', { required: true })}
+                                />
+                                <button type='button' onClick={showingPassword}>
+                                    {showPassword ? <IoEyeOffOutline size={30} color='#514D67' /> :  <IoEyeOutline size={30} color='#514D67' />}
+                                </button>
+                            </div>
                             {(errors.password != null) && <span className="text-red-700">{errors.password.message}</span>}
                         </div>
 
