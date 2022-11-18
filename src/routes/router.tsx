@@ -10,7 +10,7 @@ import { IAppState } from '../interfaces';
 import { IUsersReducer } from '../redux/users/IUsersReducer';
 
 import { PublicRoute } from './public-route';
-import { Login, Register } from '../pages';
+import { Login, NotFound, Register } from '../pages';
 
 import { adminRoutes } from './administrator';
 import { doctorRoutes } from './doctor';
@@ -49,6 +49,12 @@ const Router = () => {
                 <PublicRoute>
                     <Register />
                 </PublicRoute>
+            ),
+        },
+        {
+            path: '*',
+            element: (
+                <NotFound />
             ),
         },
     ]);
