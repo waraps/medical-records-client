@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
 import { Layout } from '../../layout';
-import { AddUser, Profile, Patients, User, WaitingRoom, AddPatient, Owners, Tests } from '../../pages';
+import { AddUser, Profile, Patients, User, WaitingRoom, AddPatient, Owners, Tests, SendPatientToRoom } from '../../pages';
 import { links } from './admin-links';
 
 export const adminRoutes: RouteObject[] = [
@@ -17,6 +17,10 @@ export const adminRoutes: RouteObject[] = [
             {
                 path: '/',
                 element: <WaitingRoom />,
+            },
+            {
+                path: '/enviar-a-sala',
+                element: <SendPatientToRoom />,
             },
             {
                 path: '/usuarios',

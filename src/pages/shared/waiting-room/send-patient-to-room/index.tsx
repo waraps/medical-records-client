@@ -1,0 +1,1 @@
+export * from './send-patient-to-room';

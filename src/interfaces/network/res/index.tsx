@@ -5,3 +5,4 @@ export * from './IOwner';
 export * from './IPatient';
 export * from './IPetSex';
 export * from './ITests';
+export * from './IMedicalAppointment';

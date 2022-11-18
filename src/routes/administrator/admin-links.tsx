@@ -1,9 +1,17 @@
 import { IMenu } from '../../interfaces';
 import { IoMedkitOutline, IoNewspaperOutline, IoPawOutline, IoPeopleOutline, IoPersonCircleOutline } from 'react-icons/io5';
-import {FaCat, FaClipboard, FaClipboardList, FaUserPlus} from 'react-icons/fa';
+import {FaCat, FaClipboard, FaClipboardList, FaDog, FaUserPlus} from 'react-icons/fa';
+import { HiClock } from 'react-icons/hi';
 
 export const links: IMenu[] = [
-    { name: 'Sala de Espera', link: '/', icon: IoMedkitOutline },
+    {   name: 'Sala de Espera', 
+        link: '/', 
+        icon: IoMedkitOutline, 
+        children: [
+            { name: 'Pacientes en Sala', link: '/', icon: HiClock },
+            { name: 'Enviar Paciente a Sala', link: '/enviar-a-sala', icon: FaDog },
+        ] 
+    },
     {
         name: 'Pacientes',
         link: '/pacientes',

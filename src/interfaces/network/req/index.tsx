@@ -5,3 +5,4 @@ export * from './IOwnerReq';
 export * from './IPatientReq';
 export * from './IOwnerPetReq';
 export * from './ITestsReq';
+export * from './IMedicalAppointmentReq';
