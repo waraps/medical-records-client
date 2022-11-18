@@ -11,15 +11,15 @@ const Navbar = (): JSX.Element => {
     );
 
     return (
-        <nav className="bg-primary-pruple-500">
+        <nav className="bg-primary-pruple-500 w-full">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-14 items-center justify-between">
                     <div className="flex flex-1">
                         <div className="flex">
-                            <h3 className="block h-8 w-auto lg:hidden font-medium leading-tight text-2xl text-white">
+                            <h3 className="block h-8 w-auto lg:hidden font-medium leading-tight text-2xl text-white text-ellipsis overflow-hidden">
                                 Bienvenido { user?.first_name ?? ''} { user?.last_name ?? ''} 👋
                             </h3>
-                            <h3 className="hidden h-8 w-auto lg:block font-medium leading-tight text-2xl text-white">
+                            <h3 className="hidden h-8 w-auto lg:block font-medium leading-tight text-2xl text-white text-ellipsis overflow-hidden">
                                 Bienvenido { user?.first_name ?? ''} { user?.last_name.charAt(0) ?? ''}. 👋
                             </h3>
                         </div>
