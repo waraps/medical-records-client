@@ -25,7 +25,13 @@ class ErrorBoundary extends Component<Props, State> {
 
     public render() {
         if (this.state.hasError) {
-            return <h1>Sorry.. there was an error</h1>;
+            return (
+                <div className='flex flex-col items-center p-5'>
+                    <h1 className='text-primary-pruple-600 text-6xl mb-5'>Vaya, eso fue inesperado.</h1>
+                    <h1 className='text-primary-pruple-600 text-2xl mb-5'>Ocurrio un error al tratar de cargar la informacion.</h1>
+                    <button className='p-4 bg-primary-pruple-500 text-white text-lg rounded-xl' onClick={() => location.reload()}>Intenta Nuevamente</button>
+                </div>
+            );
         }
 
         return this.props.children;
