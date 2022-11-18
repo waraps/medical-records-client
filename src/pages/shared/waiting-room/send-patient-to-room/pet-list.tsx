@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-key */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Column, useTable } from 'react-table';
 import { IMedicalAppointment, IMedicalAppointmentReq, IPatient } from '../../../../interfaces';
@@ -9,13 +9,20 @@ import { format } from 'date-fns';
 import { getPetSex } from '../../../../tools';
 import { AppointmentStatusConstants } from '../../../../constants';
 import { usePost } from '../../../../hooks';
+import { PickADoctorModal } from './modals/pick-a-doctor-modal';
 
 interface IPetList {
     pets: IPatient[];
 }
 
-export const PetList = ({ pets }: IPetList) => {
+export interface ISendToRoom {
+    patient_id: number, 
+    status: AppointmentStatusConstants
+}
 
+export const PetList = ({ pets }: IPetList) => {
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [sendToRoom, setSendToRoom] = useState<ISendToRoom>({patient_id: 0, status: AppointmentStatusConstants.WAITING});
     const { loading, doRequest } = usePost<IMedicalAppointment, IMedicalAppointmentReq>('/medical-appointment');
 
     const COLUMNS: Column[] = [
@@ -89,7 +96,10 @@ export const PetList = ({ pets }: IPetList) => {
                     <button 
                         disabled={loading} 
                         className='px-3 py-3 rounded-lg bg-primary-pruple-300 text-white flex justify-center items-center text-center' 
-                        onClick={() => doRequest({patient_id, status})}
+                        onClick={() => {
+                            setSendToRoom({...sendToRoom, patient_id, status});
+                            setOpenModal(true);
+                        }}
                     >
                         {loading ?
                             <svg
@@ -139,6 +149,12 @@ export const PetList = ({ pets }: IPetList) => {
 
     return (
         <div className="flex flex-col">
+            <PickADoctorModal 
+                openModal={openModal} 
+                closeModal={() => setOpenModal(false)}
+                sendToRoom={sendToRoom}
+                sendPatient={doRequest}
+            />
             <div className="overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="inline-block min-w-full align-middle">
                     <div className="overflow-hidden ">

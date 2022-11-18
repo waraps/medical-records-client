@@ -2,10 +2,12 @@
 import React, { useMemo } from 'react';
 import { Column, useTable } from 'react-table';
 import { useFetch } from '../../../hooks';
-import { IMedicalAppointment } from '../../../interfaces';
+import { IAppState, IMedicalAppointment } from '../../../interfaces';
 import { format } from 'date-fns';
 import { getAppointmentStatus } from '../../../tools';
-
+import { IUsersReducer } from '../../../redux/users/IUsersReducer';
+import { useSelector } from 'react-redux';
+import { ProfileConstants } from '../../../constants';
 
 const COLUMNS: Column[] = [
     {
@@ -36,7 +38,13 @@ const COLUMNS: Column[] = [
 ];
 
 const WaitingRoom = (): JSX.Element => {
-    const { loading, data: appointments } = useFetch<IMedicalAppointment[]>('/medical-appointment');
+    const { user } = useSelector<IAppState, IUsersReducer>(
+        (state: IAppState) => state.user
+    );
+    
+    const APPOINMENT_URL = user?.rol_id === ProfileConstants.DOCTOR ? '/medical-appointment/me' : '/medical-appointment';
+
+    const { loading, data: appointments } = useFetch<IMedicalAppointment[]>(APPOINMENT_URL);
 
     const columns = useMemo(() => COLUMNS,  []);
     const data = useMemo(() => appointments?.map(appointment => {
@@ -47,7 +55,7 @@ const WaitingRoom = (): JSX.Element => {
                 patient: appointment.patient.name,
                 status: getAppointmentStatus(appointment.status),
                 user_id: appointment.user_id,
-                user: appointment.user ? appointment.user.first_name : 'Nadie',
+                user: appointment.user ? `${appointment.user.first_name} ${appointment.user.last_name}` : 'Libre',
                 createdAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                 updatedAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
             }
