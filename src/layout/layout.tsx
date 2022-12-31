@@ -7,6 +7,7 @@ import { Footer, Sidebar, TopBar } from '../components';
 import { ILinkItem } from '../interfaces';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { me } from '../state/user';
+import ErrorBoundary from '../ErrorBoundary';
 
 interface ILayout {
     links: ILinkItem[];
@@ -49,7 +50,9 @@ export const Layout = (props: ILayout): JSX.Element => {
             <TopBar onOpen={onOpen}/>
             <Box ml={{ base: 0, md: 60 }}>
                 <Box p="4" minH="88.5vh">
-                    <Outlet />
+                    <ErrorBoundary>
+                        <Outlet />
+                    </ErrorBoundary>
                 </Box>
                 <Footer />
             </Box>
