@@ -2,30 +2,35 @@
   "name": "medical-records-client",
   "version": "0.1.0",
   "private": true,
+  "author": "Galenos Team",
+  "homepage": "",
+  "description": "Veterinary Medical Records Software",
   "dependencies": {
+    "@chakra-ui/react": "^2.4.4",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/poppins": "^4.5.10",
     "@hookform/resolvers": "^2.9.10",
+    "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/react-modal": "^3.13.1",
-    "axios": "^1.1.3",
+    "@types/react-table": "^7.7.13",
+    "axios": "^1.2.1",
     "date-fns": "^2.29.3",
-    "husky": "^8.0.2",
+    "framer-motion": "^7.10.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.3",
-    "react-icons": "^4.6.0",
-    "react-modal": "^3.16.1",
-    "react-redux": "^8.0.4",
-    "react-router-dom": "^6.4.3",
+    "react-hook-form": "^7.41.0",
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1",
     "typescript": "*",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
@@ -35,8 +40,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prepare": "husky install",
     "lint": "eslint src/**/*.ts{,x} --quiet --fix",
-    "format": "prettier --check ./src"
+    "type-check": "tsc --pretty --skipLibCheck",
+    "format": "prettier --check ./src",
+    "lint-staged": "lint-staged"
   },
   "eslintConfig": {
     "extends": [
@@ -57,25 +65,32 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
-    "@types/react-redux": "^7.1.24",
-    "@types/react-table": "^7.7.12",
-    "@types/redux": "^3.6.0",
-    "@types/redux-thunk": "^2.1.0",
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.0.1",
+    "@typescript-eslint/parser": "^5.47.0",
+    "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^23.0.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-config-standard-with-typescript": "^24.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.18",
-    "prettier": "^2.7.1",
-    "tailwindcss": "^3.2.2"
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "lint-staged": {
+    "*.{tsx,ts,scss}": [
+      "prettier --write",
+      "git add ."
+    ],
+    "src/**/*.ts{,x}": [
+      "eslint --fix"
+    ]
   }
 }

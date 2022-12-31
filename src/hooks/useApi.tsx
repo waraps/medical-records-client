@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { AxiosRequestConfig } from 'axios';
-import API from '../api/api';
 import { IError } from '../interfaces/generic';
+import { API } from '../api';
 
 interface IReturnProps<T> {
   loading: boolean

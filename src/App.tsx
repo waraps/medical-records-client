@@ -1,14 +1,12 @@
 import React from 'react';
+import { Router } from './router';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import { Router } from './routes';
+import store from './state/store';
 
-function App (): JSX.Element {
-    return (
-        <Provider store={store}>
-            <Router />
-        </Provider>
-    );
-}
+const App = (): JSX.Element => (
+    <Provider store={store}>
+        <Router />
+    </Provider>
+);
 
 export default App;
