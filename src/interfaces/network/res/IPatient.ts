@@ -1,4 +1,5 @@
 
+import { IOwner } from './IOwner';
 import { IPetSex } from './IPetSex';
 import { IUser } from './IUser';
 
@@ -12,7 +13,7 @@ export interface IPatient {
   color: string
   sex_id: number;
   neutered: boolean;
-  owner_id: number;
+  owner: IOwner;
   // records: IRecord;
   created_by: number;
   createdAt: Date;
