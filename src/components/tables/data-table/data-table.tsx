@@ -66,11 +66,13 @@ export function DataTable<Data extends object>({ columns, data, loading, searchT
                                                     {// Render the header
                                                         column.render('Header')}
                                                     <Box mb={'1'} ml={'2'} color={'primary.200'}>
-                                                        {column.isSorted
-                                                            ? column.isSortedDesc
-                                                                ? <TiArrowSortedDown />
-                                                                : <TiArrowSortedUp />
-                                                            : <TiArrowUnsorted />}
+                                                        {column.disableSortBy ? undefined :
+                                                            column.isSorted ?
+                                                                column.isSortedDesc
+                                                                    ? <TiArrowSortedDown />
+                                                                    : <TiArrowSortedUp />
+                                                                : <TiArrowUnsorted />
+                                                        }
                                                     </Box>
                                                 </Flex>
                                             </Th>
