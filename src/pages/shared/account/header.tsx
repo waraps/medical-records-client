@@ -39,7 +39,9 @@ export const Header = (props: IHeader): JSX.Element => {
                     src={avatarImage}
                     w='90px'
                     h='90px'
+                    p={'0.5'}
                     borderRadius='15px'
+                    backgroundColor={'primary.50'}
                 />
                 <Flex direction='column' maxWidth='100%' my={{ sm: '14px' }}>
                     <Text
