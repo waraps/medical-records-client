@@ -6,7 +6,7 @@ import { BiTestTube } from 'react-icons/bi';
 import { BsClockHistory } from 'react-icons/bs';
 import { GiCat } from 'react-icons/gi';
 
-import { Account, AddUser, AdminMain, EditUser, NotFound, Owners, Patients, Room, Tests, Users } from '../../pages';
+import { Account, AddUser, AdminMain, EditOwner, EditUser, NotFound, Owners, PatientDetails, Patients, Room, Tests, Users } from '../../pages';
 import { ILinkItem } from '../../interfaces';
 
 export const adminLinks: ILinkItem[] = [
@@ -55,8 +55,16 @@ export const adminRoutes: RouteObject[] = [
         element: <Patients />,
     },
     {
+        path: '/paciente/:id',
+        element: <PatientDetails />,
+    },
+    {
         path: '/propietarios',
         element: <Owners />,
+    },
+    {
+        path: '/propietarios/editar/:id',
+        element: <EditOwner />,
     },
     {
         path: '/cuenta',
