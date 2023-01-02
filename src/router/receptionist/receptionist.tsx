@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import { Account, AddPatient, EditOwner, NotFound, Owners, PatientDetails, Patients, ReceptionistMain } from '../../pages';
+import { Account, AddPatient, DetailsOwner, NotFound, Owners, PatientDetails, Patients, ReceptionistMain } from '../../pages';
 import { ILinkItem } from '../../interfaces';
 import { FiUsers } from 'react-icons/fi';
 import { BsClockHistory } from 'react-icons/bs';
@@ -47,8 +47,8 @@ export const receptionistRoutes: RouteObject[] = [
         element: <Owners />,
     },
     {
-        path: '/propietarios/editar/:id',
-        element: <EditOwner />,
+        path: '/propietario/:id',
+        element: <DetailsOwner />,
     },
     {
         path: '/cuenta',

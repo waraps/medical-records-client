@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Heading, useToast } from '@chakra-ui/react';
+import { Button, Heading, useToast } from '@chakra-ui/react';
 import { DataTable } from '../../../components';
-import { Column } from 'react-table';
+import { CellProps, Column } from 'react-table';
 import { format } from 'date-fns';
 import { useFetch } from '../../../hooks';
 import { IOwner } from '../../../interfaces/network/res/IOwner';
+import { useNavigate } from 'react-router-dom';
 
 interface IOwnerList {
     id: number;
@@ -25,6 +26,7 @@ export const Owners = (): JSX.Element => {
     const { fetchData, loading, error, data: owners} = useFetch<IOwner[]>('/owners', undefined, false);
     const [data, setData] = useState<IOwnerList[]>([]);
     const toast = useToast();
+    const navigate = useNavigate();
 
     useEffect(() => fetchData(), []);
 
@@ -90,29 +92,26 @@ export const Owners = (): JSX.Element => {
             accessor: 'email'
         },
         {
-            id: 'occupation',
-            Header: 'Ocupacion',
-            accessor: 'occupation'
-        },
-        {
-            id: 'housing',
-            Header: 'Tipo de Vivienda',
-            accessor: 'housing'
-        },
-        {
-            id: 'address',
-            Header: 'Direccion',
-            accessor: 'address'
-        },
-        {
-            id: 'other_pets',
-            Header: 'Mas de una mascota',
-            accessor: 'other_pets'
-        },
-        {
             id: 'createdAt',
             Header: 'Registrado',
             accessor: 'createdAt'
+        },
+        {
+            id: 'details',
+            Header: 'Detalles',
+            accessor: 'id',
+            Cell: ({ value }: CellProps<IOwnerList>) => {
+                return (
+                    <Button
+                        bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
+                        variant={'outline'}
+                        size={'sm'}
+                        onClick={() => navigate(`/propietario/${value}`)}>
+                        Ver Detalles
+                    </Button>
+                );
+            },
+            disableSortBy: true,
         },
     ],  []);
 

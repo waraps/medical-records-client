@@ -57,7 +57,7 @@ export const PatientDetails = () => {
         if(!loadingUpdated && patientUpdated) {
             fetchData();
             toast({
-                description: error?.message || 'Datos actualizados exitosamente',
+                description: errorUpdated?.message || 'Datos actualizados exitosamente',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
@@ -66,7 +66,7 @@ export const PatientDetails = () => {
         }
         if (!loadingUpdated && Boolean(errorUpdated)) {
             toast({
-                description: error?.message || 'Error actualizando datos',
+                description: errorUpdated?.message || 'Error actualizando datos',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
@@ -74,6 +74,18 @@ export const PatientDetails = () => {
             });
         }
     }, [loadingUpdated]);
+
+    useEffect(() => {
+        if (!loading && Boolean(error)) {
+            toast({
+                description: error?.message || 'Error cargando actualizando',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+                position: 'bottom-right',
+            });
+        }
+    }, [loading]);
 
     const onSubmit = async (schema: patientSchemaType): Promise<void> => {
         doUpdate({
@@ -126,7 +138,7 @@ export const PatientDetails = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Flex flexDirection={{ base: 'column', md: 'row'}} my={1}>
                         <FormControl isInvalid={!!errors?.name?.message} mt={2}>
-                            <FormLabel htmlFor="email" color="primary.600">Nombre</FormLabel>
+                            <FormLabel htmlFor="name" color="primary.600">Nombre</FormLabel>
                             <Input
                                 id="name"
                                 type="text"
@@ -138,7 +150,7 @@ export const PatientDetails = () => {
                             </FormErrorMessage>
                         </FormControl>
                         <FormControl ml={{base: 'none', md: 2}} mt={2}>
-                            <FormLabel htmlFor="neutered" color="primary.600">Dueno</FormLabel>
+                            <FormLabel htmlFor="owner" color="primary.600">Dueno</FormLabel>
                             <Input
                                 id="owner"
                                 type="text"
