@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Heading, useToast } from '@chakra-ui/react';
+import { Button, Flex, Heading, useToast } from '@chakra-ui/react';
 
-import { Column, } from 'react-table';
+import { CellProps, Column, } from 'react-table';
 import { useFetch } from '../../../hooks';
 import { IUser } from '../../../interfaces';
 import { format } from 'date-fns';
 import { DataTable } from '../../../components';
 import { userType } from '../../../tools';
+import { useNavigate } from 'react-router-dom';
+import { FiUserPlus } from 'react-icons/fi';
 
 interface IUsersTable {
     id: number;
@@ -24,6 +26,7 @@ export const Users = (): JSX.Element => {
     const { fetchData, loading, error, data: users} = useFetch<IUser[]>('/users', undefined, false);
     const [data, setData] = useState<IUsersTable[]>([]);
     const toast = useToast();
+    const navigate = useNavigate();
 
     useEffect(() => fetchData(), []);
 
@@ -95,14 +98,36 @@ export const Users = (): JSX.Element => {
             Header: 'Registrado',
             accessor: 'createdAt'
         },
+        {
+            id: 'details',
+            Header: 'Detalles',
+            accessor: 'id',
+            Cell: ({ value }: CellProps<IUsersTable>) => {
+                return (
+                    <Button
+                        bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
+                        variant={'outline'}
+                        size={'sm'}
+                        onClick={() => navigate(`/usuario/${value}`)}>
+                        Ver Detalles
+                    </Button>
+                );
+            },
+            disableSortBy: true,
+        },
     ],  []);
 
 
     return (
         <>
-            <Heading as='h1' size='lg' noOfLines={1} ml={'1'} mb={'5'} >
-                Usuarios
-            </Heading>
+            <Flex justifyContent={'space-between'}>
+                <Heading as='h1' size='lg' noOfLines={1} ml={'1'} mb={'5'} >
+                    Usuarios
+                </Heading>
+                <Button rightIcon={<FiUserPlus />} bg={'secondary.400'} color={'white'} _hover={{bg: 'secondary.600'}} onClick={() => navigate('/usuario/nuevo')}>
+                    Nuevo
+                </Button>
+            </Flex>
             <DataTable
                 columns={columns}
                 data={data}

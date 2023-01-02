@@ -1,3 +1,4 @@
+export * from './IRol';
 export * from './IUser';
 export * from './IPetSex';
 export * from './IPatient';

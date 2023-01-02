@@ -6,20 +6,13 @@ import { BiTestTube } from 'react-icons/bi';
 import { BsClockHistory } from 'react-icons/bs';
 import { GiCat } from 'react-icons/gi';
 
-import { Account, AddUser, AdminMain, DetailsOwner, EditUser, NotFound, Owners, PatientDetails, Patients, Room, Tests, Users } from '../../pages';
+import { Account, AddUser, AdminMain, DetailsOwner, DetailsUser, EditAccount, NotFound, Owners, PatientDetails, Patients, Room, Tests, Users } from '../../pages';
 import { ILinkItem } from '../../interfaces';
 
 export const adminLinks: ILinkItem[] = [
     { name: 'Inicio', icon: FiHome, path: '/' },
     { name: 'Sala de Espera', icon: BsClockHistory, path: '/sala-de-espera' },
-    { name: 'Usuarios',
-        icon: FiUsers,
-        childrens: [
-            { name: 'Listar', icon: FiUsers, path: '/usuarios/lista' },
-            { name: 'Agregar', icon: FiUsers, path: '/usuarios/nuevo' },
-            { name: 'Editar', icon: FiUsers, path: '/usuarios/editar' },
-        ]
-    },
+    { name: 'Usuarios', icon: FiUsers, path: '/usuarios' },
     { name: 'Examenes', icon: BiTestTube, path: '/examenes' },
     { name: 'Pacientes', icon: GiCat, path: '/pacientes' },
     { name: 'Propietarios', icon: FiUser, path: '/propietarios' },
@@ -35,16 +28,16 @@ export const adminRoutes: RouteObject[] = [
         element: <Room />,
     },
     {
-        path: '/usuarios/lista',
+        path: '/usuarios',
         element: <Users />,
     },
     {
-        path: '/usuarios/nuevo',
+        path: '/usuario/nuevo',
         element: <AddUser />,
     },
     {
-        path: '/usuarios/editar',
-        element: <EditUser />,
+        path: '/usuario/:id',
+        element: <DetailsUser />,
     },
     {
         path: '/examenes',
@@ -69,6 +62,10 @@ export const adminRoutes: RouteObject[] = [
     {
         path: '/cuenta',
         element: <Account />,
+    },
+    {
+        path: '/cuenta/actualizar',
+        element: <EditAccount />,
     },
     {
         path: '*',
