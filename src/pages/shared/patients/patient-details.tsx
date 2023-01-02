@@ -78,7 +78,7 @@ export const PatientDetails = () => {
     useEffect(() => {
         if (!loading && Boolean(error)) {
             toast({
-                description: error?.message || 'Error cargando actualizando',
+                description: error?.message || 'Error al cargar datos',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,

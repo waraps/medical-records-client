@@ -93,7 +93,7 @@ export const DetailsOwner = () => {
     useEffect(() => {
         if (!loading && Boolean(error)) {
             toast({
-                description: error?.message || 'Error cargando actualizando',
+                description: error?.message || 'Error cargando datos',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
