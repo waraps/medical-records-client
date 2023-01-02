@@ -38,6 +38,7 @@ export const AdminMain = () => {
                         w='90px'
                         h='90px'
                         borderRadius='15px'
+                        backgroundColor={'primary.50'}
                     />
                     <Flex direction='column' maxWidth='100%' my={{ sm: '14px' }}>
                         <Text
