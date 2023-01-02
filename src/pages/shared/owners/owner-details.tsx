@@ -72,7 +72,7 @@ export const DetailsOwner = () => {
         if(!loadingUpdated && patientUpdated) {
             fetchData();
             toast({
-                description: errorUpdated?.message || 'Datos actualizados exitosamente',
+                description: 'Datos actualizados exitosamente',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
@@ -168,7 +168,7 @@ export const DetailsOwner = () => {
                             <FormLabel htmlFor="dni" color="primary.600">C.I</FormLabel>
                             <Input
                                 id="dni"
-                                type="text"
+                                type="number"
                                 focusBorderColor='primary.400'
                                 {...register('dni', { required: true })}
                             />

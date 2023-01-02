@@ -57,7 +57,7 @@ export const PatientDetails = () => {
         if(!loadingUpdated && patientUpdated) {
             fetchData();
             toast({
-                description: errorUpdated?.message || 'Datos actualizados exitosamente',
+                description: 'Datos actualizados exitosamente',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
