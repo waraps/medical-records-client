@@ -7,14 +7,13 @@ interface IProfileInformation {
     description: string;
     name: string;
     dni: string;
-    phone: string;
     email: string;
     user_type: string;
     created_At: string;
 }
 
 export const ProfileInformation = (props : IProfileInformation): JSX.Element => {
-    const { title, description, name, dni, phone, email, user_type, created_At } = props;
+    const { title, description, name, dni, email, user_type, created_At } = props;
 
     return (
         <Card p='16px' my={{ sm: '24px', xl: '0px' }}>
@@ -48,18 +47,6 @@ export const ProfileInformation = (props : IProfileInformation): JSX.Element => 
                                 </Text>
                                 <Text fontSize='md' color='primary.400' fontWeight='400'>
                                     {dni}
-                                </Text>
-                            </Flex>
-                        )
-                    }
-                    {
-                        phone.length > 0 && (
-                            <Flex align='center' mb='18px'>
-                                <Text fontSize='md' color={'primary.700'} fontWeight='bold' me='10px'>
-                                    Teléfono:{' '}
-                                </Text>
-                                <Text fontSize='md' color='primary.400' fontWeight='400'>
-                                    {phone}
                                 </Text>
                             </Flex>
                         )

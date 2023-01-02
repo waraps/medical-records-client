@@ -25,10 +25,9 @@ export const Account = (): JSX.Element => {
             <Grid templateColumns={{ sm: '1fr', xl: 'repeat(3, 1fr)' }} gap='22px'>
                 <ProfileInformation
                     title={'Información de Perfil'}
-                    description={'Aquí puedes ver un resumen de los datos básicos de la cuenta'}
+                    description={'Aquí puedes ver un resumen de los datos básicos de tu cuenta'}
                     name={fullName}
                     dni={user?.dni || ''}
-                    phone={user?.phone || ''}
                     email={user?.email || ''}
                     user_type={user?.rol_id ? userType(user?.rol_id) : ''}
                     created_At={format(user?.createdAt ? new Date(user?.createdAt) : new Date(), 'dd/LL/yyyy')}

@@ -28,7 +28,7 @@ export const PlatformSettings = ({ title }: IPlatformSettings) => {
                             </Text>
                         </Flex>
                     </Link>
-                    <Link to={'/cuenta'}>
+                    <Link to={'/cuenta/actualizar'}>
                         <Flex align='center' mb='20px' color={'primary.700'}>
                             <HiAdjustments size={20} />
                             <Text ml={2} noOfLines={1} fontSize='md' color='primary.400' fontWeight='400' _hover={{textDecor: 'underline'}}>
