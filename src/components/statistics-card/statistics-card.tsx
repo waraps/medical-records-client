@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader } from '../card';
 interface IStatisticsCard {
     title: string;
     description: string;
-    statistic: string;
+    statistic: number;
 }
 
 export const StatisticsCard = (props: IStatisticsCard): JSX.Element => {

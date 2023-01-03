@@ -1,12 +1,36 @@
-import React from 'react';
-import { Avatar, Flex, Grid, Text, useColorModeValue } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import { Avatar, Flex, Grid, Text, useColorModeValue, useToast } from '@chakra-ui/react';
 import { StatisticsCard } from '../../../components';
 import { useAppSelector } from '../../../state/hooks';
+import { useFetch } from '../../../hooks';
+
+interface IAdminStats {
+    usersCount: number;
+    patientsCount: number;
+    ownersCount: number;
+    testsCount: number;
+    patientInRoomCount: number;
+}
 
 export const AdminMain = () => {
     const { user } = useAppSelector(state => state.user);
     const fullName = `${user?.first_name || ''} ${user?.last_name || ''}`;
     const borderProfileColor = useColorModeValue('white', 'rgba(255, 255, 255, 0.31)');
+    const toast = useToast();
+
+    const { loading, error, data} = useFetch<IAdminStats>('users/admin/stats');
+
+    useEffect(() => {
+        if (!loading && Boolean(error)) {
+            toast({
+                description: error?.message || 'Ha ocurrido un error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+                position: 'bottom-right',
+            });
+        }
+    }, [loading]);
 
     return (
         <Flex direction='column'>
@@ -61,27 +85,27 @@ export const AdminMain = () => {
                 <StatisticsCard
                     title='Sala de Espera'
                     description='Cantidad de mascotas en sala de espera actualmente'
-                    statistic='20'
+                    statistic={data?.patientInRoomCount || 0}
                 />
                 <StatisticsCard
                     title='Pacientes'
                     description='Cantidad de mascotas registradas hasta la fecha'
-                    statistic='20'
+                    statistic={data?.patientsCount || 0}
                 />
                 <StatisticsCard
                     title='Propietarios'
                     description='Cantidad de propietarios de mascotas registrados hasta la fecha'
-                    statistic='20'
+                    statistic={data?.ownersCount || 0}
                 />
                 <StatisticsCard
                     title='Usuarios'
                     description='Cantidad de usuarios registrados hasta la fecha'
-                    statistic='20'
+                    statistic={data?.usersCount || 0}
                 />
                 <StatisticsCard
                     title='Exámenes'
                     description='Cantidad de tipos de exámenes registrados hasta la fecha'
-                    statistic='20'
+                    statistic={data?.testsCount || 0}
                 />
             </Grid>
         </Flex>
