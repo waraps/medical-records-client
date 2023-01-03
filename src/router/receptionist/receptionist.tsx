@@ -19,7 +19,7 @@ export const receptionistLinks: ILinkItem[] = [
         icon: GiCat,
         childrens: [
             { name: 'Listar', icon: FiUsers, path: '/pacientes/lista' },
-            { name: 'Agregar', icon: FiUsers, path: '/pacientes/nuevo' },
+            { name: 'Registar', icon: FiUsers, path: '/paciente/nuevo' },
         ]
     },
     { name: 'Propietarios', icon: FiUsers, path: '/propietarios' },
@@ -39,7 +39,7 @@ export const receptionistRoutes: RouteObject[] = [
         element: <PatientDetails />,
     },
     {
-        path: '/pacientes/nuevo',
+        path: '/paciente/nuevo',
         element: <AddPatient />,
     },
     {
