@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { DataTable } from '../../../components';
-import { Button, Heading, useToast } from '@chakra-ui/react';
+import { Button, Flex, Heading, useToast } from '@chakra-ui/react';
 import { useFetch } from '../../../hooks';
 import { format } from 'date-fns';
 import { CellProps, Column } from 'react-table';
 import { IPatient } from '../../../interfaces';
 import { getPetSex } from '../../../tools';
 import { useNavigate } from 'react-router-dom';
+import { FaDog } from 'react-icons/fa';
 
 interface IPatientsList {
     id: number;
@@ -113,9 +114,14 @@ export const Patients = (): JSX.Element => {
 
     return (
         <>
-            <Heading as='h1' size='lg' noOfLines={1} ml={'1'} mb={'5'} >
-                Pacientes
-            </Heading>
+            <Flex justifyContent={'space-between'}>
+                <Heading as='h1' size='lg' noOfLines={1} ml={'1'} mb={'5'} >
+                    Pacientes
+                </Heading>
+                <Button rightIcon={<FaDog />} bg={'secondary.400'} color={'white'} _hover={{bg: 'secondary.600'}} onClick={() => navigate('/paciente/nuevo')}>
+                    Nuevo
+                </Button>
+            </Flex>
             <DataTable
                 columns={columns}
                 data={data}
