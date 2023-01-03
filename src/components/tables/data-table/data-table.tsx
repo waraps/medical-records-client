@@ -12,9 +12,10 @@ interface IDataTable<Data extends object> {
     data: Data[];
     loading?: boolean;
     searchTitle?: string;
+    hideSearch?: boolean
 }
 
-export function DataTable<Data extends object>({ columns, data, loading, searchTitle }: IDataTable<Data>) {
+export function DataTable<Data extends object>({ columns, data, loading, searchTitle, hideSearch }: IDataTable<Data>) {
     const tableInstance = useTable({ columns, data }, useGlobalFilter, useSortBy, usePagination);
 
     const {
@@ -49,7 +50,7 @@ export function DataTable<Data extends object>({ columns, data, loading, searchT
 
     return (
         <>
-            <DataSearch title={searchTitle} value={globalFilter} setValue={setGlobalFilter} disabled={!(page.length > 0)} />
+            {!hideSearch && <DataSearch title={searchTitle} value={globalFilter} setValue={setGlobalFilter} disabled={!(page.length > 0)} />}
             <TableContainer backgroundColor={'white'} border={'1px'} borderColor={'primary.100'} borderRadius={'lg'}>
                 <Table variant='simple' {...getTableProps()}>
                     {!(page.length > 0) && <TableCaption>No hay datos que mostrar</TableCaption>}
