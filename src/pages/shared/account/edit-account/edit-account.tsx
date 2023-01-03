@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Button, Flex, Heading, useToast, Text, Box, Avatar, FormControl, FormLabel, Input, FormErrorMessage, Select } from '@chakra-ui/react';
-import { useFetch, usePut } from '../../../hooks';
-import { IRol, IUser, IUserReq } from '../../../interfaces';
+import { useFetch, usePut } from '../../../../hooks';
+import { IRol, IUser, IUserReq } from '../../../../interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
-import userOwner from '../../../assets/images/galenos.webp';
-import { userType } from '../../../tools';
-import { editUserSchema, editUserSchemaType } from '../../administrator';
-import { useAppDispatch, useAppSelector } from '../../../state/hooks';
-import { me } from '../../../state/user';
+import userOwner from '../../../../assets/images/galenos.webp';
+import { userType } from '../../../../tools';
+import { editUserSchema, editUserSchemaType } from '../../../administrator';
+import { useAppDispatch, useAppSelector } from '../../../../state/hooks';
+import { me } from '../../../../state/user';
 
 export const EditAccount = (): JSX.Element => {
     const dispatch = useAppDispatch();
