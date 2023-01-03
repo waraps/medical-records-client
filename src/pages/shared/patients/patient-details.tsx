@@ -187,7 +187,7 @@ export const PatientDetails = () => {
                         </FormControl>
                     </Flex>
                     <Flex flexDirection={{ base: 'column', md: 'row'}} my={1}>
-                        <FormControl isInvalid={!!errors?.name?.message} mt={2}>
+                        <FormControl isInvalid={!!errors?.color?.message} mt={2}>
                             <FormLabel htmlFor="color" color="primary.600">Color</FormLabel>
                             <Input
                                 id="color"
