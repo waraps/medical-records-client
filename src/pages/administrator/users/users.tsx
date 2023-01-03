@@ -66,7 +66,7 @@ export const Users = (): JSX.Element => {
     const columns = useMemo<Column<IUsersTable>[]>(() => [
         {
             id: 'id',
-            Header: '#',
+            Header: 'Id',
             accessor: 'id'
         },
         {

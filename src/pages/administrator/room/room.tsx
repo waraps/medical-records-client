@@ -71,9 +71,9 @@ export const Room = (): JSX.Element => {
 
     const columns = useMemo<Column<IRoom>[]>(() => [
         {
-            id: 'id',
+            id: 'patient_id',
             Header: 'Nro Historia',
-            accessor: 'id'
+            accessor: 'patient_id'
         },
         {
             id: 'patient',

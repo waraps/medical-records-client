@@ -67,6 +67,11 @@ export const Owners = (): JSX.Element => {
 
     const columns = useMemo<Column<IOwnerList>[]>(() => [
         {
+            id: 'id',
+            Header: 'Id',
+            accessor: 'id'
+        },
+        {
             id: 'first_name',
             Header: 'Nombre',
             accessor: 'first_name'
