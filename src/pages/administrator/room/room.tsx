@@ -1,7 +1,7 @@
-import { Heading, useToast } from '@chakra-ui/react';
+import { Badge, Heading, useToast } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { DataTable } from '../../../components';
-import { Column } from 'react-table';
+import { CellProps, Column } from 'react-table';
 import { useFetch } from '../../../hooks';
 import { format } from 'date-fns';
 import { IAppointment } from '../../../interfaces';
@@ -56,6 +56,19 @@ export const Room = (): JSX.Element => {
         }
     }, [loading]);
 
+    const statusColor = (status: string): string => {
+        switch (status) {
+            case 'En espera':
+                return 'orange.300';
+            case 'En consulta':
+                return 'primary.300';
+            case 'Finalizada':
+                return 'secondary.300';
+            default:
+                return '';
+        }
+    };
+
     const columns = useMemo<Column<IRoom>[]>(() => [
         {
             id: 'id',
@@ -75,7 +88,14 @@ export const Room = (): JSX.Element => {
         {
             id: 'status',
             Header: 'Estado',
-            accessor: 'status'
+            accessor: 'status',
+            Cell: ({ value }: CellProps<IRoom>) => {
+                return (
+                    <Badge borderRadius={'md'} backgroundColor={statusColor(value)} variant='solid'>
+                        {value}
+                    </Badge>
+                );
+            },
         },
         {
             id: 'createdAt',
