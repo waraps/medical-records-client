@@ -20,7 +20,7 @@ export const PlatformSettings = ({ title }: IPlatformSettings) => {
             </CardHeader>
             <CardBody px='5px'>
                 <Flex direction='column'>
-                    <Link to={'/cuenta'}>
+                    <Link to={'/cambiar/contraseña'}>
                         <Flex align='center' mb='20px' color={'primary.700'}>
                             <RiKeyFill size={20} />
                             <Text ml={2} noOfLines={1} fontSize='md' color='primary.400' fontWeight='400' _hover={{textDecor: 'underline'}}>

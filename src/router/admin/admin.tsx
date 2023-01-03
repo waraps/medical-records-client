@@ -6,7 +6,7 @@ import { BiTestTube } from 'react-icons/bi';
 import { BsClockHistory } from 'react-icons/bs';
 import { GiCat } from 'react-icons/gi';
 
-import { Account, AddUser, AdminMain, DetailsOwner, DetailsUser, EditAccount, NotFound, Owners, PatientDetails, Patients, Room, Tests, Users } from '../../pages';
+import { Account, AddUser, AdminMain, ChangePassword, DetailsOwner, DetailsUser, EditAccount, NotFound, Owners, PatientDetails, Patients, Room, Tests, Users } from '../../pages';
 import { ILinkItem } from '../../interfaces';
 
 export const adminLinks: ILinkItem[] = [
@@ -66,6 +66,10 @@ export const adminRoutes: RouteObject[] = [
     {
         path: '/cuenta/actualizar',
         element: <EditAccount />,
+    },
+    {
+        path: '/cambiar/contraseña',
+        element: <ChangePassword />,
     },
     {
         path: '*',

@@ -101,7 +101,7 @@ export const Signin = (): JSX.Element => {
                                                 <InputRightElement>
                                                     <IconButton
                                                         variant="link"
-                                                        aria-label={isOpen ? 'Ocultat contraseña' : 'Revelar contraseña'}
+                                                        aria-label={isOpen ? 'Ocultar contraseña' : 'Revelar contraseña'}
                                                         icon={isOpen ? <HiEyeOff /> : <HiEye />}
                                                         onClick={onToggle}
                                                     />
