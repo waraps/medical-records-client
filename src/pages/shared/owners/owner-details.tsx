@@ -1,21 +1,26 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from 'react';
-import { Avatar, Box, Button, Checkbox, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spinner, Text, useToast } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Avatar, Box, Button, Checkbox, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spinner, Text, useDisclosure, useToast } from '@chakra-ui/react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFetch, usePut } from '../../../hooks';
 import { IOwner } from '../../../interfaces/network/res/IOwner';
 
 import avatarOwner from '../../../assets/images/galenos.webp';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { IOwnerReq } from '../../../interfaces';
+import { IOwnerReq, IPatient } from '../../../interfaces';
 import { ownerSchema, ownerSchemaType } from './owner-schema';
 import { format } from 'date-fns';
+import { DataTable } from '../../../components';
+import { CellProps, Column } from 'react-table';
 
 export const DetailsOwner = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { fetchData, loading, error, data: owner} = useFetch<IOwner>(`/owners/${id}`, undefined, false);
     const { doUpdate, loading: loadingUpdated, error: errorUpdated, data: patientUpdated } = usePut<IOwner, IOwnerReq>(`/owners/${id}`);
     const toast = useToast();
+    const { isOpen, onToggle } = useDisclosure();
 
     useEffect(() => fetchData(), []);
 
@@ -118,6 +123,46 @@ export const DetailsOwner = () => {
             </Flex>
         );
     }
+
+    const columns: Column<IPatient>[] =  [
+        {
+            id: 'id',
+            Header: 'Nro Historia',
+            accessor: 'id'
+        },
+        {
+            id: 'name',
+            Header: 'Nombre',
+            accessor: 'name'
+        },
+        {
+            id: 'specie',
+            Header: 'Especie',
+            accessor: 'specie'
+        },
+        {
+            id: 'race',
+            Header: 'Raza',
+            accessor: 'race'
+        },
+        {
+            id: 'details',
+            Header: 'Detalles',
+            accessor: 'id',
+            Cell: ({ value }: CellProps<IPatient>) => {
+                return (
+                    <Button
+                        bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
+                        variant={'outline'}
+                        size={'sm'}
+                        onClick={() => navigate(`/paciente/${value}`)}>
+                        Ver Detalles
+                    </Button>
+                );
+            },
+            disableSortBy: true,
+        },
+    ];
 
     return (
         <>
@@ -254,6 +299,19 @@ export const DetailsOwner = () => {
                         </Button>
                     </Flex>
                 </form>
+                <Box mb={2}>
+                    <Button variant="link" color="primary.400" size="sm" onClick={onToggle}>
+                        { !isOpen ? 'Ocultar mascotas' : 'Ver mascotas' }
+                    </Button>
+                </Box>
+                {!isOpen &&
+                <DataTable
+                    columns={columns}
+                    data={owner?.pets || []}
+                    loading={loading}
+                    hideSearch={true}
+                />
+                }
             </Box>
         </>
     );
