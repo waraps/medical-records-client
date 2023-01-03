@@ -7,9 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 interface ISearchOwnner {
     onSubmit: (schema: searchOwnerSchemaType) => void;
     loading?: boolean;
+    buttonTitle?: string
 }
 
-export const SearchOwner = ({ onSubmit, loading }: ISearchOwnner): JSX.Element => {
+export const SearchOwner = ({ onSubmit, loading, buttonTitle }: ISearchOwnner): JSX.Element => {
 
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm<searchOwnerSchemaType>({
         mode: 'onSubmit',
@@ -41,7 +42,7 @@ export const SearchOwner = ({ onSubmit, loading }: ISearchOwnner): JSX.Element =
                         isLoading={loading} disabled={!isDirty} size={'sm'}
                         type='submit' px={'5'} py={'5'}
                     >
-                        Iniciar registro
+                        {buttonTitle ? buttonTitle :  'Iniciar registro'}
                     </Button>
                 </Flex>
             </form>
