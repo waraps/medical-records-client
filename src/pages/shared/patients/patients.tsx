@@ -8,6 +8,8 @@ import { IPatient } from '../../../interfaces';
 import { getPetSex } from '../../../tools';
 import { useNavigate } from 'react-router-dom';
 import { FaDog } from 'react-icons/fa';
+import { useAppSelector } from '../../../state/hooks';
+import { ProfileConstants } from '../../../constants';
 
 interface IPatientsList {
     id: number;
@@ -25,6 +27,7 @@ interface IPatientsList {
 }
 
 export const Patients = (): JSX.Element => {
+    const { user } = useAppSelector(state => state.user);
     const { fetchData, loading, error, data: patients} = useFetch<IPatient[]>('/patients', undefined, false);
     const [data, setData] = useState<IPatientsList[]>([]);
     const toast = useToast();
@@ -118,9 +121,15 @@ export const Patients = (): JSX.Element => {
                 <Heading as='h1' size='lg' noOfLines={1} ml={'1'} mb={'5'} >
                     Pacientes
                 </Heading>
-                <Button rightIcon={<FaDog />} bg={'secondary.400'} color={'white'} _hover={{bg: 'secondary.600'}} onClick={() => navigate('/paciente/nuevo')}>
-                    Nuevo
-                </Button>
+                {
+                    user?.rol_id === ProfileConstants.RECEPTIONIST &&
+                    <Button
+                        rightIcon={<FaDog />} bg={'secondary.400'} color={'white'}
+                        _hover={{bg: 'secondary.600'}} onClick={() => navigate('/paciente/nuevo')}
+                    >
+                        Nuevo
+                    </Button>
+                }
             </Flex>
             <DataTable
                 columns={columns}
