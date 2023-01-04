@@ -16,11 +16,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signinSchema, signinSchemaType } from './signin-schema';
 import { Footer } from '../../../components';
+import { useNavigate } from 'react-router-dom';
 
 export const Signin = (): JSX.Element => {
     const {loading, error} = useAppSelector(state => state.auth);
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { isOpen, onToggle } = useDisclosure();
     const toast = useToast();
 
@@ -45,7 +47,6 @@ export const Signin = (): JSX.Element => {
     useEffect(() => {
         if (!loading && Boolean(error)) {
             toast({
-                // title: 'Account created.',
                 description: error?.message || 'Ha ocurrido un error',
                 status: 'error',
                 duration: 9000,
@@ -120,8 +121,8 @@ export const Signin = (): JSX.Element => {
                                         </FormControl>
                                     </Stack>
                                     <HStack justify="flex-end">
-                                        <Button variant="link" color="primary.600" size="sm">
-                                    ¿Olvidaste la contraseña?
+                                        <Button variant="link" color="primary.600" size="sm" onClick={() => navigate('/recuperar/contraseña')}>
+                                            ¿Olvidaste la contraseña?
                                         </Button>
                                     </HStack>
                                     <Stack spacing="6">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Signin } from '../pages';
+import { ForgotPassword, Signin } from '../pages';
 import { AuthRoutes } from './auth-routes';
 import { ProtectedRoutes } from './protected-routes';
 import { Layout } from '../layout';
@@ -45,6 +45,14 @@ export const Router = (): JSX.Element => {
             element: (
                 <AuthRoutes>
                     <Signin />
+                </AuthRoutes>
+            )
+        },
+        {
+            path: '/recuperar/contraseña',
+            element: (
+                <AuthRoutes>
+                    <ForgotPassword />
                 </AuthRoutes>
             )
         },
