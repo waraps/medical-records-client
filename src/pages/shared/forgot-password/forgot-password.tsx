@@ -34,7 +34,8 @@ export const ForgotPassword = (): JSX.Element => {
     useEffect(() => {
         if (!loading && data) {
             toast({
-                description: 'Nueva enviada a su correo electrónico',
+                title: 'Contraseña recuperada exitosamente',
+                description: 'La nueva contraseña fue enviada a su correo electrónico',
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
@@ -42,12 +43,8 @@ export const ForgotPassword = (): JSX.Element => {
             });
         }
         if (!loading && Boolean(error)) {
-            let message = 'Ha ocurrido un error';
-            if(error?.message === 'Credentials incorrect') {
-                message = 'Correo electrónico ingresado no existe en nuestros registros';
-            }
             toast({
-                description: message,
+                description: error?.message || 'Ha ocurrido un error',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
