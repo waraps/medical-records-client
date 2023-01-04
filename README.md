@@ -6,7 +6,7 @@ This project was created to handle medical records in a veterinary hospital.
 
 This project is built based on [ReactJs](https://reactjs.org) framework.
 
-This project is using [Tailwind CSS](https://tailwindcss.com/) for styles.
+This project is using [Chakra](https://chakra-ui.com/) for styles.
 ## Installation
 
 ```bash
