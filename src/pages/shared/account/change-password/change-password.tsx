@@ -15,7 +15,7 @@ interface IChangePasswordReq {
 }
 
 export const ChangePassword = (): JSX.Element => {
-    const { doUpdate, loading, error, data } = usePut<IUser, IChangePasswordReq>('users/password');
+    const { doUpdate, loading, error, data } = usePut<IUser, IChangePasswordReq>('users/change/password');
     const [showCurrent, setShowCurrent] = useState<boolean>(false);
     const [showNew, setShowNew] = useState<boolean>(false);
 
