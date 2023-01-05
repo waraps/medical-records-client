@@ -13,6 +13,8 @@ import { ownerSchema, ownerSchemaType } from './owner-schema';
 import { format } from 'date-fns';
 import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
+import { useAppSelector } from '../../../state/hooks';
+import { ProfileConstants } from '../../../constants';
 
 export const DetailsOwner = () => {
     const { id } = useParams();
@@ -21,6 +23,9 @@ export const DetailsOwner = () => {
     const { doUpdate, loading: loadingUpdated, error: errorUpdated, data: patientUpdated } = usePut<IOwner, IOwnerReq>(`/owners/${id}`);
     const toast = useToast();
     const { isOpen, onToggle } = useDisclosure();
+
+    const { user } = useAppSelector(state => state.user);
+    const isReceptionist = user?.rol_id === ProfileConstants.RECEPTIONIST;
 
     useEffect(() => fetchData(), []);
 
@@ -293,13 +298,13 @@ export const DetailsOwner = () => {
                             </FormErrorMessage>
                         </FormControl>
                     </Flex>
-                    <Flex justifyContent={'flex-end'}>
+                    {isReceptionist && <Flex justifyContent={'flex-end'}>
                         <Button type='submit' mt={5} disabled={!isDirty} bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}>
                             Actualizar
                         </Button>
-                    </Flex>
+                    </Flex>}
                 </form>
-                <Box mb={2}>
+                <Box mb={2} mt={isReceptionist ? 'none' : 5}>
                     <Button variant="link" color="primary.400" size="sm" onClick={onToggle}>
                         { !isOpen ? 'Ocultar mascotas' : 'Ver mascotas' }
                     </Button>
