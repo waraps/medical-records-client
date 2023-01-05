@@ -33,7 +33,6 @@ export const AddUser = (): JSX.Element => {
             last_name: schema.last_name,
             dni: schema.dni,
             email: schema.email,
-            password: schema.password,
             rol_id: schema.rol_id,
         });
     };
@@ -81,19 +80,7 @@ export const AddUser = (): JSX.Element => {
                                 {errors.email && errors.email.message}
                             </FormErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={!!errors?.password?.message} mx={{base: 'none', md: 2}} mt={2} isRequired>
-                            <FormLabel htmlFor="email" color="primary.600">Contraseña</FormLabel>
-                            <Input
-                                id="password"
-                                type="text"
-                                focusBorderColor='primary.400'
-                                {...register('password', { required: true })}
-                            />
-                            <FormErrorMessage>
-                                {errors.password && errors.password.message}
-                            </FormErrorMessage>
-                        </FormControl>
-                        <FormControl isInvalid={!!errors?.rol_id?.message}  mt={2} isRequired>
+                        <FormControl ml={{base: 'none', md: 2}} isInvalid={!!errors?.rol_id?.message}  mt={2} isRequired>
                             <FormLabel htmlFor="rol_id" color="primary.600">Tipo de Usuario</FormLabel>
                             <Select {...register('rol_id', { required: true })}
                                 focusBorderColor='primary.400' bg={'white'} variant={'outline'}
