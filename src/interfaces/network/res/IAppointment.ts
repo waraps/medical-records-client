@@ -8,8 +8,8 @@ export interface IAppointment {
     status: AppointmentStatusConstants;
     patient_id: number;
     patient: IPatient;
-    user_id: number;
-    user: IUser;
+    doctor_id: number;
+    doctor: IUser;
     createdAt: Date;
     updatedAt: Date;
 }
