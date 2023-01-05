@@ -82,6 +82,11 @@ export const Patients = (): JSX.Element => {
             accessor: 'name'
         },
         {
+            id: 'specie',
+            Header: 'Especie',
+            accessor: 'specie'
+        },
+        {
             id: 'owner',
             Header: 'Dueño',
             accessor: 'owner'
