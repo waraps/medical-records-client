@@ -1,3 +1,5 @@
+import { IAppointment } from '../network';
+
 export interface IRoom {
     id: number;
     status: string;
@@ -7,4 +9,5 @@ export interface IRoom {
     doctor: string;
     createdAt: string;
     updatedAt: string;
+    appointment?: IAppointment;
 }

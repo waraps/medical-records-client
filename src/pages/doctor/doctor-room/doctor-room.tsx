@@ -1,4 +1,4 @@
-import { Badge, Heading, useToast } from '@chakra-ui/react';
+import { Badge, Button, Heading, useToast } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
@@ -6,6 +6,7 @@ import { useFetch } from '../../../hooks';
 import { format } from 'date-fns';
 import { IAppointment, IRoom } from '../../../interfaces';
 import { getAppointmentStatus } from '../../../tools';
+import { AppointmentStatusConstants } from '../../../constants';
 
 export const DoctorRoom = (): JSX.Element => {
     const { fetchData, loading, error, data: appointments} = useFetch<IAppointment[]>('/medical-appointment/me', undefined, false);
@@ -26,6 +27,7 @@ export const DoctorRoom = (): JSX.Element => {
                     doctor: appointment.doctor ? `${appointment.doctor.first_name} ${appointment.doctor.last_name}` : 'Libre',
                     createdAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                     updatedAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
+                    appointment: appointment
                 };
             }) || [];
 
@@ -90,6 +92,24 @@ export const DoctorRoom = (): JSX.Element => {
             id: 'createdAt',
             Header: 'Paciente desde',
             accessor: 'createdAt'
+        },
+        {
+            id: 'record',
+            Header: 'Comenzar consulta',
+            accessor: (row) => row.appointment,
+            Cell: ({ value }: { value: IRoom })  => {
+                return (
+                    <Button
+                        bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
+                        variant={'outline'}
+                        size={'sm'}
+                        disabled={value.status === AppointmentStatusConstants.IN_PROGRESS}
+                        onClick={() => console.log(JSON.stringify(value))}>
+                        Comenzar
+                    </Button>
+                );
+            },
+            disableSortBy: true,
         },
     ],  []);
 
