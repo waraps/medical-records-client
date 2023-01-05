@@ -5,7 +5,7 @@ export const userType = (role: number): string => {
         case ProfileConstants.ADMINISTRATOR:
             return 'Administrador';
         case ProfileConstants.DOCTOR:
-            return 'Medico Veterinario';
+            return 'Médico Veterinario';
         case ProfileConstants.RECEPTIONIST:
             return 'Recepcionista';
         default:
