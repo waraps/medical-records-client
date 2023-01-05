@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-import { Button, Heading, useToast } from '@chakra-ui/react';
-import { useFetch, usePost } from '../../../hooks';
-import { IAppointment, IOwner, IPatient } from '../../../interfaces';
+import React, { useEffect, useState } from 'react';
+import { Button, Heading, useDisclosure, useToast } from '@chakra-ui/react';
+import { useFetch } from '../../../hooks';
+import { IOwner, IPatient } from '../../../interfaces';
 import { SearchOwner, searchOwnerSchemaType } from '../patients';
 import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
 import { useNavigate } from 'react-router-dom';
-import { IAppointmentReq } from '../../../interfaces/network/req/IAppointmentReq';
-import { AppointmentStatusConstants } from '../../../constants';
+import { AlertAssignToDoctor } from './assign-to-doctor-modal';
 
 export const PatientToRoom = () => {
     const { fetchData, loading: loadingOwner, error: errorOwner, data: owner} = useFetch<IOwner>('', undefined, false);
-    const { doRequest, loading, error, data } = usePost<IAppointment, IAppointmentReq>('/medical-appointment');
     const toast = useToast();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const navigate = useNavigate();
+
+    const [selectedPatient, setSelectedPatient] = useState<number>(0);
 
     const onSearchOwner = (schema: searchOwnerSchemaType): void => {
         fetchData(`/owners/dni/${schema.dni}`);
@@ -31,36 +32,6 @@ export const PatientToRoom = () => {
         }
 
     }, [loadingOwner]);
-
-    useEffect(() => {
-        if (!loading && data) {
-            toast({
-                description: 'Paciente enviado a sala exitosamente',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-                position: 'bottom-right',
-            });
-        }
-        if (!loading && Boolean(error)) {
-            let message: string = error?.message || 'Error al enviar mascota a sala';
-            if(error?.message === 'Patient is in an appointment already') {
-                message = 'El paciente se encuentra en espera o ya esta en consulta';
-            }
-            toast({
-                description: message,
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
-                position: 'bottom-right',
-            });
-        }
-
-    }, [loading]);
-
-    const sendPatientToRoom = (patientId: number): void => {
-        doRequest({ patient_id: patientId, status: AppointmentStatusConstants.WAITING });
-    };
 
     const columns: Column<IPatient>[] =  [
         {
@@ -93,7 +64,6 @@ export const PatientToRoom = () => {
                         bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
                         variant={'outline'}
                         size={'sm'}
-                        disabled={loading}
                         onClick={() => navigate(`/paciente/${value}`)}>
                         Ver Detalles
                     </Button>
@@ -111,7 +81,10 @@ export const PatientToRoom = () => {
                         bg={'secondary.400'} color={'white'} _hover={{bg: 'secondary.500'}}
                         variant={'outline'}
                         size={'sm'}
-                        onClick={() => sendPatientToRoom(value)}>
+                        onClick={() => {
+                            setSelectedPatient(value);
+                            onOpen();
+                        }}>
                         Enviar
                     </Button>
                 );
@@ -132,6 +105,7 @@ export const PatientToRoom = () => {
                 loading={loadingOwner}
                 hideSearch={true}
             />
+            <AlertAssignToDoctor isOpen={isOpen} onClose={onClose} patient={selectedPatient} />
         </>
     );
 };
