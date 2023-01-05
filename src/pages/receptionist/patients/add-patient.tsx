@@ -102,7 +102,7 @@ export const AddPatient = () => {
                 birth: new Date(schema.birth),
                 color: schema.color,
                 sex_id: schema.sex_id,
-                neutered: schema.neutered,
+                neutered: schema.neutered || false,
                 owner_id: owner.id,
             };
             createPatient(patient);
@@ -117,7 +117,7 @@ export const AddPatient = () => {
                 email: schema.email,
                 occupation: schema.occupation,
                 housing: schema.housing,
-                other_pets: schema.other_pets,
+                other_pets: schema.other_pets || false,
 
                 // patient
                 specie: schema.specie,
@@ -126,7 +126,7 @@ export const AddPatient = () => {
                 birth: new Date(schema.birth),
                 color: schema.color,
                 sex_id: schema.sex_id,
-                neutered: schema.neutered,
+                neutered: schema.neutered || false,
             };
             doRequest(ownerPatient);
         }
@@ -152,7 +152,7 @@ export const AddPatient = () => {
                 name: '',
                 birth: format(new Date(), 'dd/LL/yyyy'),
                 color: '',
-                sex_id: 0,
+                sex_id: 1,
                 neutered: false,
             });
             onToggle();
@@ -341,7 +341,7 @@ export const AddPatient = () => {
                                     </FormControl>
                                     <FormControl mt={2}>
                                         <FormLabel htmlFor="other_pets" color="primary.600" mb={4}>¿Posee más de una mascota?</FormLabel>
-                                        <Checkbox id="other_pets" {...register('other_pets', { required: true })} isRequired isReadOnly={existOwner} mx={1}>{watch('other_pets') ? 'Si' : 'No'}</Checkbox>
+                                        <Checkbox id="other_pets" {...register('other_pets')} isReadOnly={existOwner} mx={1}>{watch('other_pets') ? 'Si' : 'No'}</Checkbox>
                                         <FormErrorMessage>
                                             {errors.other_pets && errors.other_pets.message}
                                         </FormErrorMessage>
@@ -429,9 +429,9 @@ export const AddPatient = () => {
                                             {errors.birth && errors.birth.message}
                                         </FormErrorMessage>
                                     </FormControl>
-                                    <FormControl mt={2} isInvalid={!!errors?.neutered?.message} isRequired>
+                                    <FormControl mt={2} isInvalid={!!errors?.neutered?.message}>
                                         <FormLabel htmlFor="neutered" color="primary.600" mb={4}>Esterilizado</FormLabel>
-                                        <Checkbox id="neutered" {...register('neutered', { required: true })} mx={1}>{watch('neutered') ? 'Si' : 'No'}</Checkbox>
+                                        <Checkbox id="neutered" {...register('neutered')} mx={1}>{watch('neutered') ? 'Si' : 'No'}</Checkbox>
                                         <FormErrorMessage>
                                             {errors.neutered && errors.neutered.message}
                                         </FormErrorMessage>

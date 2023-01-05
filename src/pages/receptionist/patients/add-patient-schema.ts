@@ -10,7 +10,7 @@ export const addPatientSchema = yup.object({
     email: yup.string().label('email').email('Debe ingresar un correo valido').required('Este campo es requerido'),
     occupation: yup.string().label('occupation').required('Este campo es requerido'),
     housing: yup.string().label('housing').required('Este campo es requerido'),
-    other_pets: yup.boolean().label('other_pets').required('Este campo es requerido'),
+    other_pets: yup.boolean().label('other_pets'),
     // pet
     specie: yup.string().label('specie').required('Este campo es requerido'),
     race: yup.string().label('race').required('Este campo es requerido'),
@@ -18,7 +18,7 @@ export const addPatientSchema = yup.object({
     birth: yup.string().label('birth').required('Este campo es requerido'),
     color: yup.string().label('color').required('Este campo es requerido'),
     sex_id: yup.number().label('sex_id').required('Este campo es requerido'),
-    neutered: yup.boolean().label('neutered').required('Este campo es requerido'),
+    neutered: yup.boolean().label('neutered'),
 });
 
 export type addPatientSchemaType = yup.InferType<typeof addPatientSchema>
