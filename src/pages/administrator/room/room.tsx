@@ -4,19 +4,8 @@ import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
 import { useFetch } from '../../../hooks';
 import { format } from 'date-fns';
-import { IAppointment } from '../../../interfaces';
+import { IAppointment, IRoom } from '../../../interfaces';
 import { getAppointmentStatus } from '../../../tools';
-
-interface IRoom {
-    id: number;
-    status: string;
-    patient_id: number;
-    patient: string;
-    user_id: number;
-    user: string;
-    createdAt: string;
-    updatedAt: string;
-}
 
 export const Room = (): JSX.Element => {
     const { fetchData, loading, error, data: appointments} = useFetch<IAppointment[]>('/medical-appointment', undefined, false);
@@ -33,8 +22,8 @@ export const Room = (): JSX.Element => {
                     patient_id: appointment.patient_id,
                     patient: appointment.patient.name,
                     status: getAppointmentStatus(appointment.status),
-                    user_id: appointment.user_id,
-                    user: appointment.user ? `${appointment.user.first_name} ${appointment.user.last_name}` : 'Libre',
+                    doctor_id: appointment.doctor_id,
+                    doctor: appointment.doctor ? `${appointment.doctor.first_name} ${appointment.doctor.last_name}` : 'Libre',
                     createdAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                     updatedAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                 };
@@ -81,9 +70,9 @@ export const Room = (): JSX.Element => {
             accessor: 'patient'
         },
         {
-            id: 'user',
+            id: 'doctor',
             Header: 'Asignado a',
-            accessor: 'user'
+            accessor: 'doctor'
         },
         {
             id: 'status',
