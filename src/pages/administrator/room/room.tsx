@@ -1,5 +1,5 @@
-import { Badge, Heading, useToast } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
+import { Badge, Heading, useToast, Text } from '@chakra-ui/react';
 import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
 import { useFetch } from '../../../hooks';
@@ -23,7 +23,7 @@ export const Room = (): JSX.Element => {
                     patient: appointment.patient.name,
                     status: getAppointmentStatus(appointment.status),
                     doctor_id: appointment.doctor_id,
-                    doctor: appointment.doctor ? `${appointment.doctor.first_name} ${appointment.doctor.last_name}` : 'Libre',
+                    doctor: appointment.doctor,
                     createdAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                     updatedAt: format(new Date(appointment.createdAt), 'dd/LL/yyyy'),
                 };
@@ -72,7 +72,14 @@ export const Room = (): JSX.Element => {
         {
             id: 'doctor',
             Header: 'Asignado a',
-            accessor: 'doctor'
+            accessor: (row) => row.doctor,
+            Cell: ({ value }: CellProps<IRoom>) => {
+                return (
+                    <Text>
+                        {value ? `${value.first_name} ${value.last_name}` : 'Libre'}
+                    </Text>
+                );
+            },
         },
         {
             id: 'status',

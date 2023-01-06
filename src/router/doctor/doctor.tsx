@@ -1,17 +1,19 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-import { Account, ChangePassword, DetailsOwner, DoctorMain, DoctorRoom, EditAccount, NotFound, Owners, PatientDetails, Patients, Tests } from '../../pages';
+import { Account, Appointment, ChangePassword, DetailsOwner, DoctorMain, DoctorRoom, EditAccount, NotFound, Owners, PatientDetails, Patients, Tests } from '../../pages';
 import { ILinkItem } from '../../interfaces';
 
 import { FiHome, FiUser } from 'react-icons/fi';
 import { GiCat } from 'react-icons/gi';
 import { BiTestTube } from 'react-icons/bi';
 import { BsClockHistory } from 'react-icons/bs';
+import { IoPawOutline } from 'react-icons/io5';
 
 export const doctorLinks: ILinkItem[] = [
     { name: 'Inicio', icon: FiHome, path: '/' },
     { name: 'Sala de Espera', icon: BsClockHistory, path: '/sala-de-espera' },
+    { name: 'Consulta', icon: IoPawOutline, path: '/consulta' },
     { name: 'Examenes', icon: BiTestTube, path: '/examenes' },
     { name: 'Pacientes', icon: GiCat, path: '/pacientes' },
     { name: 'Propietarios', icon: FiUser, path: '/propietarios' },
@@ -25,6 +27,10 @@ export const doctorRoutes: RouteObject[] = [
     {
         path: '/sala-de-espera',
         element: <DoctorRoom />,
+    },
+    {
+        path: '/consulta',
+        element: <Appointment />,
     },
     {
         path: '/pacientes',

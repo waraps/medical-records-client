@@ -6,3 +6,4 @@ export * from './IAppointment';
 export * from './ITests';
 export * from './IOwner';
 export * from './IRecoveryPassword';
+export * from './IRecord';

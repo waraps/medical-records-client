@@ -8,4 +8,5 @@ export interface IUser {
     rol_id: number;
     createdAt: Date;
     updateAt: Date;
+    openToAppointment?: boolean;
 }

@@ -18,6 +18,7 @@ export interface IPatient {
   created_by: number;
   createdAt: Date;
   updatedAt: Date;
-  pet_sex: IPetSex,
-  user: IUser,
+  pet_sex: IPetSex;
+  user: IUser;
+  in_room?: boolean;
 }

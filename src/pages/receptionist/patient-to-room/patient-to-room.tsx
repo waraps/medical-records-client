@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Heading, useDisclosure, useToast } from '@chakra-ui/react';
 import { useFetch } from '../../../hooks';
-import { IOwner, IPatient } from '../../../interfaces';
+import { IOwner, IPatient, IPatientsList } from '../../../interfaces';
 import { SearchOwner, searchOwnerSchemaType } from '../patients';
 import { DataTable } from '../../../components';
 import { CellProps, Column } from 'react-table';
 import { useNavigate } from 'react-router-dom';
 import { AlertAssignToDoctor } from './assign-to-doctor-modal';
+import { format } from 'date-fns';
+import { getPetSex } from '../../../tools';
 
 export const PatientToRoom = () => {
     const { fetchData, loading: loadingOwner, error: errorOwner, data: owner} = useFetch<IOwner>('', undefined, false);
@@ -14,6 +16,7 @@ export const PatientToRoom = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const navigate = useNavigate();
 
+    const [pets, setPets] = useState<IPatientsList[]>([]);
     const [selectedPatient, setSelectedPatient] = useState<number>(0);
 
     const onSearchOwner = (schema: searchOwnerSchemaType): void => {
@@ -33,7 +36,31 @@ export const PatientToRoom = () => {
 
     }, [loadingOwner]);
 
-    const columns: Column<IPatient>[] =  [
+    useEffect(() => {
+        if(owner && owner.pets) {
+            const formattedPatient: IPatientsList[] = owner.pets.map(patient => {
+                return {
+                    id: patient.id,
+                    avatar: patient.avatar,
+                    name: patient.name,
+                    owner: `${patient.owner.first_name} ${patient.owner.last_name}`,
+                    sex_id: getPetSex(patient.sex_id),
+                    race: patient.race,
+                    specie: patient.specie,
+                    color: patient.color,
+                    birth: format(new Date(patient.birth), 'dd/LL/yyyy'),
+                    neutered: patient.neutered ? 'Si' : 'No',
+                    created_by: `${patient.user.first_name} ${patient.user.last_name}`,
+                    createdAt: format(new Date(patient.createdAt), 'dd/LL/yyyy'),
+                    patient: patient,
+                };
+            }) || [];
+
+            setPets(formattedPatient);
+        }
+    }, [owner?.pets]);
+
+    const columns: Column<IPatientsList>[] =  [
         {
             id: 'id',
             Header: 'Nro Historia',
@@ -58,7 +85,7 @@ export const PatientToRoom = () => {
             id: 'details',
             Header: 'Detalles',
             accessor: 'id',
-            Cell: ({ value }: CellProps<IPatient>) => {
+            Cell: ({ value }: CellProps<IPatientsList>) => {
                 return (
                     <Button
                         bg={'primary.400'} color={'white'} _hover={{bg: 'primary.500'}}
@@ -74,15 +101,16 @@ export const PatientToRoom = () => {
         {
             id: 'send',
             Header: 'Enviar a Sala',
-            accessor: 'id',
-            Cell: ({ value }: CellProps<IPatient>) => {
+            accessor: (row) => row.patient,
+            Cell: ({ value }: { value: IPatient }) => {
                 return (
                     <Button
                         bg={'secondary.400'} color={'white'} _hover={{bg: 'secondary.500'}}
                         variant={'outline'}
                         size={'sm'}
+                        disabled={value.in_room}
                         onClick={() => {
-                            setSelectedPatient(value);
+                            setSelectedPatient(value.id);
                             onOpen();
                         }}>
                         Enviar
@@ -101,7 +129,7 @@ export const PatientToRoom = () => {
             <SearchOwner onSubmit={onSearchOwner} buttonTitle={'Buscar'} />
             <DataTable
                 columns={columns}
-                data={owner?.pets || []}
+                data={pets || []}
                 loading={loadingOwner}
                 hideSearch={true}
             />

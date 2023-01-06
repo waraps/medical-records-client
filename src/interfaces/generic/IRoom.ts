@@ -1,4 +1,4 @@
-import { IAppointment } from '../network';
+import { IAppointment, IUser } from '../network';
 
 export interface IRoom {
     id: number;
@@ -6,7 +6,7 @@ export interface IRoom {
     patient_id: number;
     patient: string;
     doctor_id: number;
-    doctor: string;
+    doctor: IUser;
     createdAt: string;
     updatedAt: string;
     appointment?: IAppointment;

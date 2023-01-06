@@ -7,6 +7,7 @@ import { Footer, Sidebar, TopBar } from '../components';
 import { ILinkItem } from '../interfaces';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import { me } from '../state/user';
+import { currentAppointment } from '../state/appointment';
 import ErrorBoundary from '../ErrorBoundary';
 
 interface ILayout {
@@ -23,6 +24,7 @@ export const Layout = (props: ILayout): JSX.Element => {
     useEffect(() => {
         if(!Boolean(user)) {
             dispatch(me());
+            dispatch(currentAppointment());
         }
     }, []);
 
