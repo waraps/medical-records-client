@@ -79,7 +79,7 @@ export const DoctorRoom = (): JSX.Element => {
         }
         if (!loadingRecord && Boolean(errorRecord)) {
             toast({
-                description: error?.message || 'Error comenzando consulta',
+                description: errorRecord?.message || 'Error comenzando consulta',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
